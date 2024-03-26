@@ -134,8 +134,6 @@ def add_piece(board_state: list[str], piece: str, column_index: int) -> bool:
    if c in is_column_empty:
        column = ''
        column = BLANK_PIECE*7 + piece
-
-
    pass
 
 def remove_piece(board_state: list[str], column_index: int) -> bool:
