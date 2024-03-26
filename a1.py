@@ -55,7 +55,7 @@ def check_input(command: str) -> bool:
     move_input = ['A', 'a', 'R', 'r']
     req_input = ['Q', 'q', 'H', 'h']
     if command == "":
-        ############ change alldat ##############
+        ############ edit this function ###############
         print(INVALID_FORMAT_MESSAGE)
         return False
     elif len(command) > 2:
