@@ -127,21 +127,24 @@ def get_action() -> str:
     print("Thanks for playing.")
 
 def add_piece(board_state: list[str], piece: str, column_index: int) -> bool:
-   c = (board_state[column_index])
-   if is_column_full(board_state[column_index]) is True:
-       print(FULL_COLUMN_MESSAGE)
-       return False
-   if c in is_column_empty:
+    c = (board_state[column_index])
+    if c in is_column_full:
+        print(FULL_COLUMN_MESSAGE)
+        return False
+    if c in is_column_empty:
        column = ''
        column = BLANK_PIECE*7 + piece
-   pass
+       return column
+    
 
 def remove_piece(board_state: list[str], column_index: int) -> bool:
     c = (board_state[column_index])
-    if c in is_column_full:
+    if c in is_column_empty:
         print(EMPTY_COLUMN_MESSAGE)
         return True
-    
+    else:
+        #for c remove piece in column[8] 
+        pass
 
 def check_win():
         pass
