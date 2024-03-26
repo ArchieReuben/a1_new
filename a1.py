@@ -81,15 +81,15 @@ def check_input(command: str) -> bool:
         print(INVALID_COLUMN_MESSAGE)
         return False        
 
-def switch_player(active_piece):
-    active_piece == True
-    active_piece = PLAYER_1_PIECE
+def switch_player(piece):
+    piece == True
+    piece = PLAYER_1_PIECE
     if(active_player == 1):
         active_player = 2
-        active_piece = PLAYER_2_PIECE
+        piece = PLAYER_2_PIECE
     else:
         active_player = 1
-        active_piece = PLAYER_1_PIECE
+        piece = PLAYER_1_PIECE
 
 def player_turn_msg(active_player):
         if(active_player == 1):
@@ -135,6 +135,9 @@ def add_piece(board_state: list[str], piece: str, column_index: int) -> bool:
        column = ''
        column = BLANK_PIECE*7 + piece
        return column
+    else:
+        column += piece 
+        return column 
     
 
 def remove_piece(board_state: list[str], column_index: int) -> bool:
