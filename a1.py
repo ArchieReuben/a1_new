@@ -159,7 +159,16 @@ def remove_piece(board_state: list[str], column_index: int) -> bool:
         return True
     
 def check_win():
-        pass
+        player_1_win = 0
+        player_2_win = 0
+        for column in board_state:
+            if PLAYER_1_PIECE*4 in column:
+                player_1_win += 1
+                print(PLAYER_1_VICTORY_MESSAGE)
+            elif PLAYER_2_PIECE*4 in column:
+                player_2_win += 1
+                print(PLAYER_2_VICTORY_MESSAGE)
+
 """
     def check_column_valid(command: str) -> bool:
         if(len(command) == 2):
