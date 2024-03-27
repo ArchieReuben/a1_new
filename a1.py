@@ -158,16 +158,135 @@ def remove_piece(board_state: list[str], column_index: int) -> bool:
         board_state[column_index] = new_column
         return True
     
-def check_win():
-        player_1_win = 0
-        player_2_win = 0
-        for column in board_state:
-            if PLAYER_1_PIECE*4 in column:
-                player_1_win += 1
-                print(PLAYER_1_VICTORY_MESSAGE)
-            elif PLAYER_2_PIECE*4 in column:
+def check_win(board_state: list[str]) -> Optional[str]:
+    player_1_win = 0
+    player_2_win = 0
+    #vert
+    for column in board_state:
+        if PLAYER_1_PIECE*4 in column:
+            player_1_win += 1
+        if PLAYER_2_PIECE*4 in column:
+            player_2_win += 1
+
+    #horizontal
+    for n in range(BOARD_SIZE):
+        row = ''
+        for i in board_state:
+            row +=i[n]
+        if 'XXXX' in row:
+            player_1_win += 1
+        if 'OOOO' in row:
+            player_2_win += 1
+
+    #diagonal
+    r=3
+    starting_row = 3
+    while r <= 7 :
+        c = 0
+        diagonal=''
+        while r >= 0:
+            diagonal+=board_state[c][r]
+            c+=1
+            r-=1
+        if "XXXX" in diagonal:
+             player_1_win += 1
+        if "OOOO" in diagonal:
+            player_2_win += 1
+        starting_row += 1
+        r = starting_row
+    
+    c = 1
+    starting_row = 1
+    while c <= 4:
+        diagonal = ''
+        r = 7
+        while c <= 7:
+            diagonal += board_state[c][r]
+            c += 1
+            r -= 1
+        if 'XXXX' in diagonal:
+            player_1_win += 1
+        if 'OOOO' in diagonal:
+            player_2_win += 1
+        starting_row +1
+        c = starting_row
+
+    
+    r=4 
+    starting_row = 4
+    while r > 0:
+        c=0
+        diagonal = ""
+        while r <=7:
+            diagonal += board_state[c][r]
+            r = r+1
+            c = c+1
+            if "XXXX" in diagonal:
+                 player_1_win += 1
+            if 'OOOO' in diagonal:
                 player_2_win += 1
-                print(PLAYER_2_VICTORY_MESSAGE)
+            starting_row -= 1
+            r = starting_row
+    c = 1
+    starting_row = 1
+    while c <= 4:
+        r = 0
+        while c <=7:
+            diagonal += board_state[c][r]
+            c = c+1
+            r = r+1
+            if "XXXX" in diagonal:
+                 player_1_win += 1
+            if 'OOOO' in diagonal:
+                player_2_win += 1
+            starting_row += 1
+            c = starting_row
+
+    if player_1_win > 0 and player_2_win > 0:
+        print(DRAW_MESSAGE)
+        return BLANK_PIECE
+    elif player_1_win > 0:
+        print(PLAYER_1_VICTORY_MESSAGE)
+        return PLAYER_1_PIECE
+    elif player_2_win > 0:
+        print(PLAYER_2_VICTORY_MESSAGE)
+        return PLAYER_2_PIECE
+
+    
+def play_game():
+    piece = PLAYER_1_PIECE
+    board_state = generate_initial_board()
+    display_board(board_state)
+    print(PLAYER_1_MOVE_MESSAGE)
+    turn = 1 # player 1 turn is 1, and player 2 turn is 0
+    while check_win(board_state) == None:
+        input = get_action()
+        if input in "Hh":
+            print(HELP_MESSAGE)
+            display_board(board_state)
+            if turn == 1:
+                print(PLAYER_1_MOVE_MESSAGE)
+            else:
+                print(PLAYER_2_MOVE_MESSAGE)
+        if input in "Qq":
+            break
+        if input[0] in "Aa":
+            column = int(input[1]) - 1
+            add = add_piece(board_state, piece, column)
+            if add is True:
+                display_board(board_state)
+                if check_win(board_state) == None:
+                    if turn == 0:
+                        print(PLAYER_1_MOVE_MESSAGE)
+                        piece = PLAYER_1_PIECE
+                        turn += 1
+                    elif turn == 1:
+                        print(PLAYER_2_MOVE_MESSAGE)
+                        piece = PLAYER_2_PIECE
+                        turn -= 1
+                    else:
+                        break
+
 
 """
     def check_column_valid(command: str) -> bool:

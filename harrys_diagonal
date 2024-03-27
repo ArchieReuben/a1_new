@@ -1,0 +1,40 @@
+
+    for column in board_state:
+        if "XXXX" or "OOOO" in column:
+            return True
+        for i in range(0, BOARD_SIZE, 1):
+            for j in range(0, BOARD_SIZE, 1):
+                current_row += board_state[i][j]
+            if "XXXX" or "OOOO" in current_row:
+                return True
+            else:
+                current_row = ""
+    
+                ##Centre##
+    current_row = ""
+    """check diagonals"""
+    diagonal_centre = ""
+    for i in range(0, BOARD_SIZE, 1):
+        diagonal_centre += board_state[i][j]
+        print("Diagonal Centre: ", diagonal_centre)
+        if "XXXX" or "OOOO" in diagonal_centre:
+            return True
+        else:
+            diagonal_centre= ""
+                ##down and across##
+
+    diagonal_down = ""
+    diagonal_across = ""
+    for i in range(0, BOARD_SIZE - WIN_SIZE +1,1):
+        for j in range(0, BOARD_SIZE - i, 1):
+            diagonal_down += board_state[j][j+i]
+            diagonal_across += board_state[j+i][j]
+        print("Diagonal Down: ", diagonal_down)
+        print("diagonal_across: ",diagonal_across)
+        if win_combo in diagonal_down or  in diagonal_across:
+            return True
+        else:
+            diagonal_down = ""
+            diagonal_across = ""
+    #Win condition not met
+    return False
