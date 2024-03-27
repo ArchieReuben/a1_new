@@ -132,22 +132,39 @@ def add_piece(board_state: list[str], piece: str, column_index: int) -> bool:
         print(FULL_COLUMN_MESSAGE)
         return False
     if c in is_column_empty:
-       column = ''
+       column = ""
        column = BLANK_PIECE*7 + piece
        return column
     else:
-        column += piece 
-        return column 
+        column = board_state[column_index]
+        gap_index = column.rfind(BLANK_PIECE)
+        if gap_index != -1:
+            column = column[:gap_index] + piece + column[gap_index+1:]
+            board_state[column_index] = column
+            return True
+        else:
+            print(FULL_COLUMN_MESSAGE)
+            return False
+    # else:
+    #     for x in c:
+    #         gap_counter = 0
+    #         if x == BLANK_PIECE:
+    #             gap_counter += 1
+    #         else:
+    #             column = c
+    #             column = (gap_counter) * BLANK_PIECE + piece + board_state[column_index][gap_counter:8]
+    #     return column
     
 
 def remove_piece(board_state: list[str], column_index: int) -> bool:
     c = (board_state[column_index])
     if c in is_column_empty:
         print(EMPTY_COLUMN_MESSAGE)
-        return True
+        return False
     else:
-        #for c remove piece in column[8] 
-        pass
+        gap_counter = 0
+        gap_counter += 1 + board_state[column_index][gap_counter:7]
+        
 
 def check_win():
         pass
