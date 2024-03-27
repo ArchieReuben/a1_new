@@ -146,18 +146,18 @@ def add_piece(board_state: list[str], piece: str, column_index: int) -> bool:
         else:
             print(FULL_COLUMN_MESSAGE)
             return False
-    
-
+        
 def remove_piece(board_state: list[str], column_index: int) -> bool:
     column = board_state[column_index]
-    if BLANK_PIECE not in column:
+    if is_column_empty(board_state[column_index]):
         print(EMPTY_COLUMN_MESSAGE)
         return False
-    gap_index = column.find(BLANK_PIECE)
-    new_column = column[:gap_index] + BLANK_PIECE + column[gap_index+1:]
-    board_state[column_index] = new_column
-    return True
-
+    else:
+        new_column=''
+        new_column = BLANK_PIECE + column[0:BOARD_SIZE-1]
+        board_state[column_index] = new_column
+        return True
+    
 def check_win():
         pass
 """
