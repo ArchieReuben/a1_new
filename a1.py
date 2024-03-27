@@ -128,13 +128,14 @@ def get_action() -> str:
 
 def add_piece(board_state: list[str], piece: str, column_index: int) -> bool:
     c = (board_state[column_index])
-    if c in is_column_full:
+    if  is_column_full(c):
         print(FULL_COLUMN_MESSAGE)
         return False
-    if c in is_column_empty:
+    if  is_column_empty(c):
        column = ""
        column = BLANK_PIECE*7 + piece
-       return column
+       board_state[column_index]=column
+       return True
     else:
         column = board_state[column_index]
         gap_index = column.rfind(BLANK_PIECE)
@@ -145,26 +146,17 @@ def add_piece(board_state: list[str], piece: str, column_index: int) -> bool:
         else:
             print(FULL_COLUMN_MESSAGE)
             return False
-    # else:
-    #     for x in c:
-    #         gap_counter = 0
-    #         if x == BLANK_PIECE:
-    #             gap_counter += 1
-    #         else:
-    #             column = c
-    #             column = (gap_counter) * BLANK_PIECE + piece + board_state[column_index][gap_counter:8]
-    #     return column
     
 
 def remove_piece(board_state: list[str], column_index: int) -> bool:
-    c = (board_state[column_index])
-    if c in is_column_empty:
+    column = board_state[column_index]
+    if BLANK_PIECE not in column:
         print(EMPTY_COLUMN_MESSAGE)
         return False
-    else:
-        gap_counter = 0
-        gap_counter += 1 + board_state[column_index][gap_counter:7]
-        
+    gap_index = column.find(BLANK_PIECE)
+    new_column = column[:gap_index] + BLANK_PIECE + column[gap_index+1:]
+    board_state[column_index] = new_column
+    return True
 
 def check_win():
         pass
