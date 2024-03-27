@@ -49,11 +49,18 @@ def display_board(board_state) -> None:
         for n in board_state:
             row = row + n[column] + COLUMN_SEPARATOR
         print(row)
-    print(" 1 2 3 4 5 6 7 8 ")
+    column_labels = " "
+    for i in range(1, BOARD_SIZE + 1,1):
+        column_labels += "{} ".format(i)
+    print(column_labels)
 
 def check_input(command: str) -> bool:
     move_input = ['A', 'a', 'R', 'r']
     req_input = ['Q', 'q', 'H', 'h']
+    col_options = ""
+    for i in range(1, BOARD_SIZE + 1, 1):
+        col_options += str(i)
+        
     if command == "":
         ############ edit this function ###############
         print(INVALID_FORMAT_MESSAGE)
@@ -72,10 +79,10 @@ def check_input(command: str) -> bool:
         print(INVALID_FORMAT_MESSAGE)
         return False
     
-    elif command[0] in req_input:
-        return True
+    # elif command[0] in req_input:
+    #     return True
 
-    elif command[0] in move_input and command[1] in '12345678':
+    elif command[0] in move_input and command[1] in col_options:
         return True
     else:
         print(INVALID_COLUMN_MESSAGE)
